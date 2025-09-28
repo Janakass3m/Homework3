@@ -1,0 +1,95 @@
+---
+title: "Homework3"
+output:
+  html_document: default
+  pdf_document: default
+date: "2025-09-25"
+---
+
+# Should We Change the Design?
+
+I would recommend that this company commit to redesigning their website.
+
+```{r cars}
+data <- read.csv("homework3_data.csv")
+```
+
+# Supporting Evidence
+
+### Getting the color palette from Target
+
+```{r message=FALSE, warning=FALSE}
+library(colorfindr)
+dat <- get_colors("/Users/janak/Homework3/OtherWebsite.png")
+cols <- make_palette(dat[1:100, ])
+cols
+```
+
+## Part A (Supporting Evidence)
+
+
+```{r message=FALSE, warning=FALSE}
+library(dplyr)
+library(ggplot2)
+# Assume df is already loaded
+df <- data |> mutate(design_f = factor(design, labels = c("Old", "New")))
+
+# Spotify palette
+pal_cat <- c("Old" = "#A5D6F7", "New" = "#BB271A")
+
+# Plot 1: Violin + boxplot
+ggplot(df, aes(x = design_f, y = sales, fill = design_f)) +
+  geom_boxplot() +
+  scale_fill_manual(values = pal_cat, guide = "none") +
+  labs(title = "Sales by Design",
+       x = "Design", y = "Sale Amount ($)") +
+  theme_grey()
+```
+
+As we can see the new design has a higher median sales amount than the old design, supporting that they should change their design. 
+
+```{r pressure, message=FALSE, warning=FALSE}
+ggplot(df, aes(x = sales, fill = design_f)) +
+  geom_histogram(alpha = .4, position = "identity", bins = 20) +
+  scale_fill_manual(values = pal_cat, name = "Design") +
+  labs(title = "Distribution of Sales by Design",
+       x = "Sale Amount ($)", y = "Count")
+
+
+```
+
+This graph supports the premise because we can see that the new design distribution is shifted to the right meaning higher sales.
+
+## Part B (Estimate the difference)
+
+```{r}
+mean_old <- mean(df$sales[df$design_f == "Old"])
+mean_new <- mean(df$sales[df$design_f == "New"])
+diff <- mean_new - mean_old
+
+c(mean_old = mean_old, mean_new = mean_new, diff = diff)
+
+```
+
+The average difference between the old and new design is $3.66 in favor of the new design.
+
+## Part C (check $1.80)
+
+```{r}
+t_res_1.8 <- t.test(df$sales[df$design==1],
+                    df$sales[df$design==0],
+                    alternative = "greater",
+                    mu = 1.8)
+
+t_res_1.8
+```
+
+Null hypothesis (H₀): The mean increase in sales from the new design compared to the old design is less than or equal to $1.80.
+Alternative hypothesis (Hₐ): The mean increase in sales from the new design compared to the old design is greater than $1.80.
+
+Since the p-value (2.53e-05) is less than 0.05, we reject the null hypothesis, providing strong evidence that switching to the new design leads to a significant increase in sales beyond the $1.80 threshold.
+
+# Alternative Statement
+
+The redesign should not be implemented because it does not lead to a meaningful increase in sales beyond $1.80 per customer.
+

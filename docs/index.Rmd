@@ -22,7 +22,7 @@ data <- read.csv("homework3_data.csv")
 ```{r message=FALSE, warning=FALSE}
 library(colorfindr)
 # Target color palette
-dat <- get_colors("/Users/janak/Homework3/OtherWebsite.png")
+dat <- get_colors("OtherWebsite.png")
 cols <- make_palette(dat[1:100, ])
 cols
 ```
@@ -38,7 +38,7 @@ df <- data %>%
   mutate(design_f = factor(design, labels = c("Old", "New")))
 
 # Target palette
-pal_cat <- c("Old" = "#B3DDF9", "New" = "#BB271A")
+pal_cat <- c("Old" = "#A5D6F7", "New" = "#BB271A")
 
 # Boxplot to show mean differences between old and new
 ggplot(df, aes(x = design_f, y = sales, fill = design_f)) +

@@ -1,8 +1,8 @@
 ---
 title: "Homework3"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 date: "2025-09-25"
 ---
 
@@ -91,8 +91,8 @@ t_test <- t.test(df$sales[df$design==1],
 t_test
 ```
 
-Null hypothesis (H₀): The mean increase in sales from the new design compared to the old design is less than or equal to $1.80.
-Alternative hypothesis (Hₐ): The mean increase in sales from the new design compared to the old design is greater than $1.80.
+Null hypothesis (H0): The mean increase in sales from the new design compared to the old design is less than or equal to $1.80.
+Alternative hypothesis (Ha): The mean increase in sales from the new design compared to the old design is greater than $1.80.
 
 Since the p-value (2.53e-05) is less than 0.05, we reject the null hypothesis, providing strong evidence that switching to the new design leads to a significant increase in sales beyond the $1.80 threshold.
 
